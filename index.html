@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Цвета Дойнова — Следа. В червено.</title>
+<meta name="description" content="Интерактивен мозаечен портрет на Цвета Дойнова — Lady in Red. Докосни стъклото и чуй червеното.">
+<meta name="theme-color" content="#0f0508">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f0508'/%3E%3Cpath d='M32 8 54 32 32 56 10 32Z' fill='%23c8202f'/%3E%3C/svg%3E">
+
+
+<link rel="canonical" href="https://deyan80.github.io/tsveta-doynova-mosaic/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Цвета Дойнова — Lady in Red">
+<meta property="og:title" content="Цвета Дойнова — Следа. В червено.">
+<meta property="og:description" content="Интерактивен мозаечен портрет. Докосни стъклото — фасетите литват и звучат. Събуди ги всичките.">
+<meta property="og:url" content="https://deyan80.github.io/tsveta-doynova-mosaic/">
+<meta property="og:image" content="https://deyan80.github.io/tsveta-doynova-mosaic/tsveta-doynova-mosaic-og.jpg?v=2">
+<meta property="og:image:secure_url" content="https://deyan80.github.io/tsveta-doynova-mosaic/tsveta-doynova-mosaic-og.jpg?v=2">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Цвета Дойнова в червена рокля пред фонтани">
+<meta property="og:locale" content="bg_BG">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Цвета Дойнова — Следа. В червено.">
+<meta name="twitter:description" content="Интерактивен мозаечен портрет. Докосни стъклото и чуй червеното.">
+<meta name="twitter:image" content="https://deyan80.github.io/tsveta-doynova-mosaic/tsveta-doynova-mosaic-og.jpg?v=2">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Prata&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0f0508;
+  --bg-raise:#1a0a0f;
+  --ink:#f5ece6;
+  --ink-dim:#b7a19d;
+  --red:#d42535;
+  --red-deep:#8f1420;
+  --gold:#c9a26b;
+  --line:rgba(245,236,230,.15);
+  --serif:"Prata","Playfair Display","Iowan Old Style",Georgia,serif;
+  --sans:"Jost","Segoe UI",system-ui,sans-serif;
+}
+[data-theme="light"]{
+  --bg:#f4ece4;
+  --bg-raise:#fbf6f0;
+  --ink:#231014;
+  --ink-dim:#6a4d4f;
+  --red:#b3121f;
+  --red-deep:#7d0c16;
+  --gold:#9c7638;
+  --line:rgba(35,16,20,.17);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.65;
+  overflow-x:hidden;
+  transition:background .5s ease,color .5s ease;
+  padding-bottom:env(safe-area-inset-bottom,0);
+}
+body::before{ /* тънко червено сияние зад портрета */
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(60% 45% at 78% 22%,rgba(212,37,53,.16),transparent 70%),
+    radial-gradient(45% 40% at 8% 90%,rgba(201,162,107,.07),transparent 70%);
+}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+/* език */
+[data-lang="en"] .bg{display:none!important}
+[data-lang="bg"] .en{display:none!important}
+
+/* ---------- горна лента ---------- */
+.top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:calc(18px + env(safe-area-inset-top,0)) 0 18px;
+  border-bottom:1px solid var(--line);
+}
+.mark{
+  font-family:var(--serif);font-size:19px;letter-spacing:.01em;text-decoration:none;
+}
+.mark i{font-style:normal;color:var(--red);margin-right:.5em}
+.controls{display:flex;gap:8px}
+.ctrl{
+  font:400 12px/1 var(--sans);letter-spacing:.06em;
+  min-width:42px;height:38px;padding:0 12px;
+  color:var(--ink-dim);background:transparent;
+  border:1px solid var(--line);cursor:pointer;
+  transition:color .25s,border-color .25s,background .25s;
+}
+.ctrl:hover{color:var(--ink);border-color:var(--red)}
+
+/* ---------- сцена ---------- */
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,5fr) minmax(0,6fr);
+  grid-template-areas:"intro stage" "legend stage";
+  grid-template-rows:auto 1fr;
+  column-gap:clamp(28px,5vw,80px);
+  row-gap:36px;
+  padding:clamp(30px,5vw,70px) 0 clamp(40px,6vw,90px);
+  align-items:start;
+}
+.intro{grid-area:intro}
+.stagecol{grid-area:stage}
+.legend{grid-area:legend;align-self:end}
+
+h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(46px,6.6vw,90px);line-height:1.02;letter-spacing:-.015em;
+  margin:0 0 22px;
+}
+h1 .red{color:var(--red);display:block}
+.lede{
+  max-width:470px;margin:0;
+  font-size:clamp(15.5px,1.5vw,17.5px);color:var(--ink-dim);
+}
+
+.stage-wrap{position:relative;max-width:640px;margin:0 auto}
+.stage-wrap::before{ /* златна рамка, изместена като паспарту */
+  content:"";position:absolute;inset:-12px 12px 12px -12px;
+  border:1px solid var(--gold);opacity:.7;pointer-events:none;
+}
+.stage{
+  position:relative;width:100%;
+  aspect-ratio:1123/1401;
+  background:var(--bg-raise);
+  overflow:hidden;
+  box-shadow:0 50px 100px -40px rgba(0,0,0,.75);
+  cursor:crosshair;touch-action:none;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+}
+.stage canvas{display:block;width:100%;height:100%}
+
+.sound-toggle{
+  position:absolute;top:14px;right:14px;z-index:5;
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);
+  background:rgba(12,4,7,.62);
+  color:#fff;display:grid;place-items:center;cursor:pointer;
+}
+.sound-toggle svg{width:17px;height:17px}
+.sound-toggle:hover{border-color:var(--gold)}
+
+.hint{
+  position:absolute;left:50%;bottom:18px;transform:translateX(-50%);
+  width:max-content;max-width:calc(100% - 28px);text-align:center;
+  font-size:13px;letter-spacing:.03em;color:#fff;
+  background:rgba(12,4,7,.7);
+  padding:10px 18px;border:1px solid rgba(255,255,255,.2);
+  pointer-events:none;transition:opacity .6s ease;
+}
+.hint.gone{opacity:0}
+
+/* финал */
+.finale{
+  position:absolute;left:0;right:0;bottom:0;z-index:4;
+  padding:60px 22px 22px;
+  background:linear-gradient(to top,rgba(12,3,6,.92) 0%,rgba(12,3,6,.7) 55%,transparent 100%);
+  color:#fff;text-align:center;
+  opacity:0;transform:translateY(16px);pointer-events:none;
+  transition:opacity .9s ease,transform .9s cubic-bezier(.22,1,.36,1);
+}
+.finale.show{opacity:1;transform:none}
+.finale.show .fbtns{pointer-events:auto}
+.finale h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,4.4vw,40px);line-height:1.1;margin:0 0 6px}
+.finale p{margin:0 0 16px;color:#eadbd5;font-size:15px}
+.fbtns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  font:400 13.5px/1 var(--sans);letter-spacing:.03em;
+  padding:13px 20px;min-height:44px;
+  color:var(--ink);background:transparent;
+  border:1px solid var(--line);text-decoration:none;cursor:pointer;
+  transition:border-color .25s,color .25s,background .25s,transform .25s;
+}
+.pill:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px)}
+.pill.primary{background:var(--red);border-color:var(--red);color:#fff}
+.pill.primary:hover{background:var(--red-deep);border-color:var(--red-deep);color:#fff}
+.finale .pill{color:#fff;border-color:rgba(255,255,255,.35)}
+.finale .pill.primary{border-color:var(--red)}
+
+.progress{max-width:640px;margin:26px auto 0}
+.progress-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:14px;color:var(--ink-dim)}
+.progress-row b{font-family:var(--serif);font-weight:400;font-size:26px;color:var(--ink);letter-spacing:-.01em}
+.bar{position:relative;height:2px;background:var(--line);margin:8px 0 10px}
+.bar u{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--red);text-decoration:none;transition:width .35s ease}
+.goal{margin:0;font-size:13.5px;color:var(--ink-dim)}
+
+.plate{
+  max-width:640px;margin:26px auto 0;padding-top:16px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+}
+.plate .name{font-family:var(--serif);font-size:21px;margin:0}
+.plate .role{margin:0;font-size:14px;color:var(--ink-dim);text-align:right}
+
+/* три гласа */
+.legend h2{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.4vw,28px);margin:0 0 6px}
+.legend>p{margin:0 0 18px;color:var(--ink-dim);font-size:14.5px;max-width:440px}
+.voices{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.voices li{display:grid;grid-template-columns:22px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.voices strong{font-weight:500;display:block;color:var(--ink)}
+.voices span.t{color:var(--ink-dim)}
+.dot{width:12px;height:12px;border-radius:50%;margin-top:6px}
+.dot.r{background:var(--red)}
+.dot.l{background:linear-gradient(135deg,#fff,var(--gold))}
+.dot.s{background:#1a0509;border:1px solid var(--ink-dim)}
+
+/* огледала */
+.mirror{padding:clamp(40px,7vw,100px) 0;border-top:1px solid var(--line)}
+.mirror blockquote{
+  margin:0 auto;max-width:900px;text-align:center;
+  font-family:var(--serif);font-size:clamp(28px,4.6vw,56px);line-height:1.18;letter-spacing:-.01em;
+}
+.mirror .motto{
+  max-width:640px;margin:30px auto 0;text-align:center;
+  color:var(--ink-dim);font-size:clamp(15px,1.6vw,17px);
+}
+.mirror .by{display:block;text-align:center;margin-top:16px;color:var(--gold);font-size:14px}
+
+/* следа: връзки + споделяне */
+.trail{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,80px);
+  padding:clamp(36px,5vw,64px) 0;border-top:1px solid var(--line);
+}
+.trail h2{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.6vw,32px);margin:0 0 18px}
+.links{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.links a{
+  display:flex;justify-content:space-between;gap:16px;
+  padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none;
+  transition:color .25s,padding .25s;
+}
+.links a:hover{color:var(--red);padding-left:6px}
+.links span{color:var(--ink-dim);font-size:14.5px}
+.share{display:flex;flex-wrap:wrap;gap:10px}
+
+footer{
+  padding:30px 0 40px;border-top:1px solid var(--line);
+  color:var(--ink-dim);font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;
+}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;grid-template-areas:"intro" "stage" "legend";row-gap:34px}
+  .stage-wrap::before{inset:-8px 8px 8px -8px}
+  .trail{grid-template-columns:1fr}
+  .legend{align-self:start}
+  .plate{flex-direction:column;gap:4px}
+  .plate .role{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body data-theme="dark" data-lang="bg">
+<div class="wrap">
+
+  <header class="top">
+    <a class="mark" href="#top"><i>&#9670;</i><span class="bg">Цвета Дойнова</span><span class="en">Tsveta Doynova</span></a>
+    <div class="controls">
+      <button class="ctrl" id="langBtn" type="button" aria-label="Смени езика / Switch language">EN</button>
+      <button class="ctrl" id="themeBtn" type="button" aria-label="Тъмна / светла тема" title="Тъмна / светла тема">&#9680;</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+
+      <div class="intro">
+        <h1>
+          <span class="bg">Следа.<span class="red">В червено.</span></span>
+          <span class="en">A trail.<span class="red">In red.</span></span>
+        </h1>
+        <p class="lede">
+          <span class="bg">Портрет от стъклени фасети. Докосни го с пръст или с мишка — късчетата се повдигат, улавят слънцето и звънват. Всяка част от кадъра пее със свой глас, така както Цвета живее в контраст: страст и хладна прецизност, светлина и дълбочина.</span>
+          <span class="en">A portrait made of glass facets. Touch it with a finger or the cursor — the shards lift, catch the sun and chime. Every part of the frame sings with its own voice, the way Tsveta lives in contrast: passion and cool precision, light and depth.</span>
+        </p>
+      </div>
+
+      <div class="stagecol">
+        <div class="stage-wrap">
+          <div class="stage" id="stage">
+            <canvas id="mosaic" role="img" aria-label="Интерактивен мозаечен портрет на Цвета Дойнова в червена рокля пред фонтани"></canvas>
+
+            <button class="sound-toggle" id="soundBtn" type="button" aria-pressed="true" aria-label="Звук вкл./изкл." title="Звук">
+              <svg id="soundIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></svg>
+            </button>
+
+            <div class="hint" id="hint">
+              <span class="bg">Докосни стъклото. Кликни веднъж, за да чуеш.</span>
+              <span class="en">Touch the glass. Click once to hear it.</span>
+            </div>
+
+            <div class="finale" id="finale" aria-live="polite">
+              <h3><span class="bg">Червеното съм АЗ.</span><span class="en">Red is ME.</span></h3>
+              <p><span class="bg">Красотата е мой култ.</span><span class="en">Beauty is my cult.</span></p>
+              <div class="fbtns">
+                <a class="pill primary" id="finaleShare" href="#" target="_blank" rel="noopener"><span class="bg">Сподели във Facebook</span><span class="en">Share on Facebook</span></a>
+                <button class="pill" id="restartBtn" type="button"><span class="bg">Отначало</span><span class="en">Start over</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress">
+          <div class="progress-row">
+            <span><span class="bg">Събудени фасети</span><span class="en">Awakened facets</span></span>
+            <b id="pct">0%</b>
+          </div>
+          <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="barA11y"><u id="barFill"></u></div>
+          <p class="goal"><span class="bg">Събуди всички и червеното ще проговори.</span><span class="en">Wake them all and the red will speak.</span></p>
+        </div>
+
+        <div class="plate">
+          <p class="name">Цвета Дойнова</p>
+          <p class="role"><span class="bg">Lady in Red, модел, психолог</span><span class="en">Lady in Red, model, psychologist</span></p>
+        </div>
+      </div>
+
+      <div class="legend">
+        <h2><span class="bg">Три гласа в един портрет</span><span class="en">Three voices, one portrait</span></h2>
+        <p><span class="bg">Портретът чете цветовете под пръста ти и избира инструмент. Мелодията е в хиджаз лад — с горещ, източен привкус.</span><span class="en">The portrait reads the colour under your finger and picks an instrument. The melody lives in a hijaz mode, with a warm, oriental heat.</span></p>
+        <ul class="voices">
+          <li><i class="dot r"></i><div><strong><span class="bg">Червено</span><span class="en">Red</span></strong><span class="t"><span class="bg">кадифен глас — топъл като плат и страст</span><span class="en">a velvet voice — warm as fabric and passion</span></span></div></li>
+          <li><i class="dot l"></i><div><strong><span class="bg">Светлина</span><span class="en">Light</span></strong><span class="t"><span class="bg">кристален звън — вода, слънце, отблясък</span><span class="en">crystal chimes — water, sun, glare</span></span></div></li>
+          <li><i class="dot s"></i><div><strong><span class="bg">Сянка</span><span class="en">Shadow</span></strong><span class="t"><span class="bg">дълбок тон — косата и тъмните ъгли на кадъра</span><span class="en">a deep tone — the hair and the dark corners of the frame</span></span></div></li>
+        </ul>
+      </div>
+
+    </section>
+
+    <section class="mirror">
+      <blockquote>
+        <span class="bg">„В свят на отражения съм избрала автентичност.“</span>
+        <span class="en">“In a world of reflections I have chosen authenticity.”</span>
+      </blockquote>
+      <p class="motto">
+        <span class="bg">Основната мисия на човека е да открие себе си, да го заяви и защити с времето и предизвикателствата и да не очаква одобрение за това, което е.</span>
+        <span class="en">The main mission of a human being is to discover oneself, to declare and defend it through time and challenges, and not to expect approval for who one is.</span>
+      </p>
+      <span class="by">Цвета Дойнова</span>
+    </section>
+
+    <section class="trail">
+      <div>
+        <h2><span class="bg">Следата на Цвета</span><span class="en">Follow the trail</span></h2>
+        <ul class="links">
+          <li><a href="https://www.facebook.com/t.doynova" target="_blank" rel="noopener">Facebook <span>t.doynova</span></a></li>
+          <li><a href="https://www.instagram.com/tsvetadoynova/" target="_blank" rel="noopener">Instagram <span>@tsvetadoynova</span></a></li>
+          <li><a href="https://mental.free.bg/" target="_blank" rel="noopener"><span class="bg">Официален сайт</span><span class="en">Official website</span> <span>mental.free.bg</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h2><span class="bg">Сподели портрета</span><span class="en">Share the portrait</span></h2>
+        <div class="share">
+          <a class="pill primary" data-share="fb" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="pill" data-share="viber" href="#">Viber</a>
+          <a class="pill" data-share="wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="pill" data-share="tg" href="#" target="_blank" rel="noopener">Telegram</a>
+          <a class="pill" data-share="x" href="#" target="_blank" rel="noopener">X</a>
+          <a class="pill" data-share="li" href="#" target="_blank" rel="noopener">LinkedIn</a>
+          <button class="pill" id="nativeShare" type="button" hidden><span class="bg">Още…</span><span class="en">More…</span></button>
+          <button class="pill" id="copyBtn" type="button"><span class="bg">Копирай линк</span><span class="en">Copy link</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="bg">Дизайн и код: студио за дигитални портрети, Димитровград</span>
+    <span class="en">Design &amp; build: digital portrait studio, Dimitrovgrad</span>
+    <span>© 2026 Цвета Дойнова</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ помощни ============ */
+var body = document.body;
+function $(id){ return document.getElementById(id); }
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function rng(seed){ // стабилен генератор — мрежата е една и съща при всяко зареждане
+  var a = seed >>> 0;
+  return function(){
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    var t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ език и тема ============ */
+var langBtn = $('langBtn'), themeBtn = $('themeBtn');
+function applyLang(l){
+  body.setAttribute('data-lang', l);
+  document.documentElement.lang = l;
+  langBtn.textContent = l === 'bg' ? 'EN' : 'BG';
+  lsSet('tsveta_lang', l);
+}
+function applyTheme(t){
+  body.setAttribute('data-theme', t);
+  lsSet('tsveta_theme', t);
+  var m = document.querySelector('meta[name="theme-color"]');
+  if(m) m.setAttribute('content', t === 'dark' ? '#0f0508' : '#f4ece4');
+}
+applyLang(lsGet('tsveta_lang') === 'en' ? 'en' : 'bg');
+applyTheme(lsGet('tsveta_theme') === 'light' ? 'light' : 'dark');
+langBtn.addEventListener('click', function(){ applyLang(body.getAttribute('data-lang') === 'bg' ? 'en' : 'bg'); });
+themeBtn.addEventListener('click', function(){ applyTheme(body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); });
+
+/* ============ звук ============ */
+/* Хиджаз лад (A B♭ C♯ D E F G) — страстен, източно-балкански.
+   Три гласа по цвят: кадифе (червено), кристал (светлина), сянка (тъмно).
+   Опростено за телефони: по 2 осцилатора на нота, лек ехо ефект, ограничена полифония. */
+var AC = window.AudioContext || window.webkitAudioContext;
+var COARSE = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+var actx = null, master, bus, soundOn = true, lastNote = 0, voicesLive = 0;
+var SEMI = [0,1,4,5,7,8,10];
+function freq(idx){ return 110 * Math.pow(2, (SEMI[idx % 7] + 12 * Math.floor(idx / 7)) / 12); }
+var PROF = {
+  r: { t1: 'sawtooth', t2: 'sine',     h: 2,    a: 0.03,  d: 1.1, g: 0.05, lp: 1300 }, // кадифе
+  l: { t1: 'sine',     t2: 'triangle', h: 2.01, a: 0.006, d: 0.7, g: 0.05, lp: 4200 }, // кристал
+  s: { t1: 'sine',     t2: 'triangle', h: 2,    a: 0.02,  d: 0.9, g: 0.09, lp: 900  }  // сянка
+};
+
+var soundBtn = $('soundBtn'), soundIcon = $('soundIcon'), hint = $('hint');
+function setSoundIcon(){
+  soundIcon.innerHTML = soundOn
+    ? '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 010 7"/><path d="M19 6a9 9 0 010 12"/>'
+    : '<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9l5 6M21 9l-5 6"/>';
+  soundBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+}
+setSoundIcon();
+
+function initAudio(){
+  if(actx || !AC) return;
+  actx = new AC();
+  master = actx.createGain(); master.gain.value = soundOn ? 0.9 : 0;
+  var comp = actx.createDynamicsCompressor();
+  comp.threshold.value = -18; comp.ratio.value = 4;
+  bus = actx.createGain();
+  bus.connect(comp);
+  // лек ехо вместо тежък реверб — звучи „скъпо", а е евтино за процесора
+  var dl = actx.createDelay(0.6); dl.delayTime.value = 0.24;
+  var fb = actx.createGain(); fb.gain.value = 0.28;
+  var wet = actx.createGain(); wet.gain.value = 0.3;
+  bus.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(wet); wet.connect(comp);
+  comp.connect(master); master.connect(actx.destination);
+}
+function ensureAudio(){
+  if(!AC) return;
+  initAudio();
+  if(actx && actx.state === 'suspended'){
+    actx.resume().then(function(){ hint.classList.add('gone'); }).catch(function(){});
+    try{ // отключва iOS Safari
+      var b = actx.createBuffer(1, 1, 22050), s = actx.createBufferSource();
+      s.buffer = b; s.connect(actx.destination); s.start(0);
+    }catch(e){}
+  } else if(actx && actx.state === 'running'){
+    hint.classList.add('gone');
+  }
+}
+soundBtn.addEventListener('click', function(e){
+  e.stopPropagation();
+  soundOn = !soundOn; setSoundIcon();
+  ensureAudio();
+  if(actx) master.gain.setTargetAtTime(soundOn ? 0.9 : 0, actx.currentTime, 0.05);
+});
+soundBtn.addEventListener('pointerdown', function(e){ e.stopPropagation(); });
+
+function tone(f, pn, vel, kind, dur){
+  var p = PROF[kind], t = actx.currentTime; dur = dur || p.d;
+  var o1 = actx.createOscillator(), o2 = actx.createOscillator();
+  var g = actx.createGain(), lp = actx.createBiquadFilter();
+  o1.type = p.t1; o2.type = p.t2;
+  o1.frequency.value = f; o2.frequency.value = f * p.h;
+  lp.type = 'lowpass'; lp.frequency.value = p.lp;
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(p.g * vel, t + p.a);
+  g.gain.exponentialRampToValueAtTime(0.0008, t + dur);
+  o1.connect(lp); o2.connect(lp); lp.connect(g);
+  var pr = null;
+  try{ pr = actx.createStereoPanner(); pr.pan.value = Math.max(-1, Math.min(1, pn)); }catch(e){ pr = null; }
+  if(pr){ g.connect(pr); pr.connect(bus); } else { g.connect(bus); }
+  o1.start(t); o2.start(t); o1.stop(t + dur + 0.05); o2.stop(t + dur + 0.05);
+  voicesLive++;
+  o1.onended = function(){ voicesLive--; };
+}
+function playTri(tr, vel, gap){
+  if(!actx || !soundOn || actx.state !== 'running') return;
+  if(voicesLive > 7) return;
+  var now = actx.currentTime;
+  if(now - lastNote < gap) return;
+  lastNote = now;
+  tone(freq(tr.note), (tr.cx / cw) * 2 - 1, vel, tr.voice);
+}
+function finaleChord(){ // A · E · A · C♯ · E + високи камбани
+  if(!actx || !soundOn || actx.state !== 'running') return;
+  [110, 164.81, 220, 277.18, 329.63].forEach(function(f, i){ tone(f, (i - 2) * 0.3, 0.9, 'r', 3); });
+  tone(880, -0.3, 0.8, 'l', 2.5); tone(1108.73, 0.3, 0.7, 'l', 2.5);
+}
+
+/* ============ мозайка ============ */
+var stage = $('stage'), canvas = $('mosaic'), ctx = canvas.getContext('2d');
+var img = new Image(), imgReady = false;
+var COLS = 15, ROWS = 19;                 // като в примера — малко фасети, лек за телефон
+var MAX_LIFT = reduceMotion ? 6 : 16;
+var dpr = Math.min(window.devicePixelRatio || 1, COARSE ? 1.5 : 2);
+var cw = 0, ch = 0, kx = 1, ky = 1, srect = null;
+var tris = [], touchedFlags = [], touchedCount = 0;
+var samp = null, SW = 60, SH = 75;
+var pointer = { x: -9999, y: -9999, active: false, speed: 0, t: 0 };
+var ripples = [];
+var finaleRunning = false, finaleDone = false, finaleT0 = 0, finaleChordDone = false;
+var lastNeed = false;
+
+function buildSample(){
+  try{
+    var c = document.createElement('canvas'); c.width = SW; c.height = SH;
+    var x = c.getContext('2d', { willReadFrequently: true });
+    x.drawImage(img, 0, 0, SW, SH);
+    samp = x.getImageData(0, 0, SW, SH).data;
+  }catch(e){ samp = null; }
+}
+function classify(u, w){
+  if(samp){
+    var px = Math.min(SW - 1, Math.floor(u * SW)), py = Math.min(SH - 1, Math.floor(w * SH));
+    var o = (py * SW + px) * 4, r = samp[o], g = samp[o + 1], b = samp[o + 2];
+    var luma = 0.299 * r + 0.587 * g + 0.114 * b;
+    if(r > 105 && r > g * 1.38 && r > b * 1.45) return 'r';
+    if(luma < 72) return 's';
+    return 'l';
+  }
+  if(u > 0.3 && u < 0.72 && w > 0.18 && w < 0.86) return 'r';
+  return w > 0.5 ? 'l' : 's';
+}
+
+function buildMesh(){
+  var rand = rng(20260920);
+  var cellW = cw / COLS, cellH = ch / ROWS, V = [];
+  for(var j = 0; j <= ROWS; j++){
+    var row = [];
+    for(var i = 0; i <= COLS; i++){
+      var x = i * cellW, y = j * cellH;
+      if(i > 0 && i < COLS && j > 0 && j < ROWS){
+        x += (rand() - 0.5) * cellW * 0.5; y += (rand() - 0.5) * cellH * 0.5;
+      }
+      row.push([x, y]);
+    }
+    V.push(row);
+  }
+  tris = [];
+  for(var j2 = 0; j2 < ROWS; j2++){
+    for(var i2 = 0; i2 < COLS; i2++){
+      var a = V[j2][i2], b = V[j2][i2 + 1], c = V[j2 + 1][i2 + 1], d = V[j2 + 1][i2];
+      var pair = ((i2 + j2) % 2 === 0) ? [[a, b, d], [b, c, d]] : [[a, b, c], [a, c, d]];
+      for(var t = 0; t < 2; t++){
+        var v = pair[t];
+        var cx = (v[0][0] + v[1][0] + v[2][0]) / 3, cy = (v[0][1] + v[1][1] + v[2][1]) / 3;
+        var ang = Math.atan2(cy - ch * 0.5, cx - cw * 0.5) + (rand() - 0.5) * 0.8;
+        var minX = Math.max(0, Math.min(v[0][0], v[1][0], v[2][0]) - 1), maxX = Math.min(cw, Math.max(v[0][0], v[1][0], v[2][0]) + 1);
+        var minY = Math.max(0, Math.min(v[0][1], v[1][1], v[2][1]) - 1), maxY = Math.min(ch, Math.max(v[0][1], v[1][1], v[2][1]) + 1);
+        var u = cx / cw, w = cy / ch, vc = classify(u, w);
+        var deg = Math.min(6, Math.floor(u * 7)), up = w < 0.5 ? 1 : 0, note;
+        if(vc === 'r') note = up * 7 + deg;             // A2 .. A4
+        else if(vc === 'l') note = 14 + up * 7 + deg;   // A4 .. G6
+        else note = deg;                                // A2 .. G3
+        var k = tris.length;
+        tris.push({
+          v: v, cx: cx, cy: cy, dx: Math.cos(ang), dy: Math.sin(ang),
+          bx: minX, by: minY, bw: maxX - minX, bh: maxY - minY,
+          elev: 0, armed: false, voice: vc, note: note,
+          tone: (rand() - 0.5) * 2, idx: k
+        });
+        if(touchedFlags[k] === undefined) touchedFlags[k] = false;
+      }
+    }
+  }
+}
+
+function resize(){
+  var rect = stage.getBoundingClientRect();
+  if(!rect.width) return;
+  srect = rect;
+  if(Math.abs(rect.width - cw) < 0.5 && Math.abs(rect.height - ch) < 0.5 && tris.length) return; // без излишно преизграждане
+  cw = rect.width; ch = rect.height;
+  canvas.width = Math.round(cw * dpr); canvas.height = Math.round(ch * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  if(imgReady){ kx = img.naturalWidth / cw; ky = img.naturalHeight / ch; }
+  buildMesh();
+  lastNeed = true;
+}
+if(window.ResizeObserver){ new ResizeObserver(resize).observe(stage); }
+window.addEventListener('resize', resize);
+
+img.onload = function(){
+  imgReady = true;
+  buildSample();
+  cw = 0; resize();
+  if(!reduceMotion){ setTimeout(function(){ ripples.push({ x: cw * 0.5, y: ch * 0.6, t0: performance.now(), auto: true }); }, 500); }
+};
+img.src = 'tsveta-doynova-mosaic.jpg';
+
+/* ---- играта: колко фасети си събудил ---- */
+var pctEl = $('pct'), barFill = $('barFill'), barA11y = $('barA11y'), finaleEl = $('finale');
+function updateProgress(){
+  var r = tris.length ? touchedCount / tris.length : 0;
+  var p = Math.min(100, Math.round(r * 100));
+  pctEl.textContent = p + '%';
+  barFill.style.width = p + '%';
+  barA11y.setAttribute('aria-valuenow', p);
+  if(!finaleRunning && !finaleDone && r >= 0.9) startFinale();
+}
+function startFinale(){
+  finaleRunning = true; finaleChordDone = false; finaleT0 = performance.now();
+  pctEl.textContent = '100%'; barFill.style.width = '100%';
+}
+function restart(){
+  for(var i = 0; i < touchedFlags.length; i++) touchedFlags[i] = false;
+  touchedCount = 0; finaleRunning = false; finaleDone = false;
+  finaleEl.classList.remove('show');
+  updateProgress();
+}
+$('restartBtn').addEventListener('click', restart);
+
+/* ---- указател ---- */
+function setPointer(e){
+  var r = (e.pointerType === 'mouse' || !srect) ? stage.getBoundingClientRect() : srect, now = performance.now();
+  var nx = e.clientX - r.left, ny = e.clientY - r.top;
+  if(pointer.t){
+    var dt = Math.max(1, now - pointer.t);
+    var sp = Math.sqrt((nx - pointer.x) * (nx - pointer.x) + (ny - pointer.y) * (ny - pointer.y)) / dt;
+    pointer.speed += (sp - pointer.speed) * 0.35;
+  }
+  pointer.x = nx; pointer.y = ny; pointer.t = now;
+}
+stage.addEventListener('pointerdown', function(e){
+  ensureAudio();
+  srect = stage.getBoundingClientRect();
+  setPointer(e); pointer.active = true;
+  ripples.push({ x: pointer.x, y: pointer.y, t0: performance.now(), auto: false });
+  try{ stage.setPointerCapture(e.pointerId); }catch(_){}
+});
+stage.addEventListener('pointermove', function(e){ setPointer(e); pointer.active = true; });
+stage.addEventListener('pointerup', function(e){
+  ensureAudio();
+  if(e.pointerType !== 'mouse'){ pointer.active = false; pointer.t = 0; }
+});
+stage.addEventListener('pointercancel', function(){ pointer.active = false; pointer.t = 0; });
+stage.addEventListener('pointerleave', function(e){ if(e.pointerType === 'mouse'){ pointer.active = false; pointer.t = 0; } });
+stage.addEventListener('click', ensureAudio);
+stage.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+document.addEventListener('keydown', ensureAudio, { once: true });
+
+/* ---- рисуване ---- */
+function path(v){
+  ctx.beginPath();
+  ctx.moveTo(v[0][0], v[0][1]); ctx.lineTo(v[1][0], v[1][1]); ctx.lineTo(v[2][0], v[2][1]);
+  ctx.closePath();
+}
+var active = [];
+function frame(t){
+  requestAnimationFrame(frame);
+  if(!imgReady || !cw) return;
+
+  for(var q = ripples.length - 1; q >= 0; q--){ if(t - ripples[q].t0 > 1300) ripples.splice(q, 1); }
+  if(!pointer.active) pointer.speed *= 0.9;
+
+  var front = null;
+  if(finaleRunning){
+    var fE = t - finaleT0;
+    front = (ch + 70) - (fE / 3300) * (ch + 140);
+    if(fE > 3500 && !finaleChordDone){
+      finaleChordDone = true; finaleChord(); finaleEl.classList.add('show');
+      $('finaleShare').href = shareLinks().fb;
+    }
+    if(fE > 4600){ finaleRunning = false; finaleDone = true; }
+  }
+
+  var sigma = cw * 0.105, s2 = 2 * sigma * sigma;
+  var rs2 = 2 * (cw * 0.05) * (cw * 0.05);
+  var vel = Math.max(0.5, Math.min(1, 0.5 + pointer.speed * 0.5));
+  var gap = finaleRunning ? 0.09 : (COARSE ? 0.085 : 0.05);
+  active.length = 0;
+
+  for(var k = 0; k < tris.length; k++){
+    var tr = tris[k], tu = 0, ta = 0;
+    if(pointer.active){
+      var dx = tr.cx - pointer.x, dy = tr.cy - pointer.y;
+      tu = Math.exp(-(dx * dx + dy * dy) / s2);
+    }
+    for(var r = 0; r < ripples.length; r++){
+      var rp = ripples[r], age = t - rp.t0, rad = age * 0.5;
+      var ddx = tr.cx - rp.x, ddy = tr.cy - rp.y, dist = Math.sqrt(ddx * ddx + ddy * ddy);
+      var ring = Math.exp(-((dist - rad) * (dist - rad)) / rs2) * (1 - age / 1300) * 0.95;
+      if(rp.auto){ if(ring > ta) ta = ring; } else if(ring > tu){ tu = ring; }
+    }
+    if(front !== null){
+      var fd = tr.cy - front, fw = ch * 0.085;
+      var bump = Math.exp(-(fd * fd) / (2 * fw * fw));
+      if(bump > ta) ta = bump;
+    }
+    var target = tu > ta ? tu : ta;
+    var prev = tr.elev;
+    tr.elev += (target - tr.elev) * 0.22;
+    if(tr.elev < 0.003) tr.elev = 0;
+
+    if(!tr.armed && tr.elev > 0.45 && prev <= 0.45){
+      tr.armed = true;
+      playTri(tr, vel, gap);
+      if(tu > 0.4 && !touchedFlags[tr.idx]){ touchedFlags[tr.idx] = true; touchedCount++; updateProgress(); }
+    } else if(tr.elev < 0.15){ tr.armed = false; }
+
+    if(tr.elev > 0.015) active.push(tr);
+  }
+
+  var need = active.length > 0;
+  if(!need && !lastNeed) return;
+  lastNeed = need;
+
+  ctx.drawImage(img, 0, 0, cw, ch);
+
+  // тъмни „пукнатини" под вдигнатите фасети
+  ctx.fillStyle = 'rgba(14,2,6,0.8)';
+  for(var a = 0; a < active.length; a++){ path(active[a].v); ctx.fill(); }
+
+  // фасетите — евтина сянка (изместен тъмен триъгълник), без shadowBlur
+  for(var b = 0; b < active.length; b++){
+    var s = active[b], e = s.elev;
+    var off = e * MAX_LIFT, ox = s.dx * off, oy = s.dy * off - off * 0.4, sc = 1 + e * 0.08;
+    ctx.save();
+    ctx.translate(s.cx + ox, s.cy + oy); ctx.scale(sc, sc); ctx.translate(-s.cx, -s.cy);
+    ctx.save(); ctx.translate(2 + 3 * e, 4 + 6 * e);
+    path(s.v); ctx.fillStyle = 'rgba(0,0,0,' + (0.45 * e) + ')'; ctx.fill();
+    ctx.restore();
+    ctx.save();
+    path(s.v); ctx.clip();
+    ctx.drawImage(img, s.bx * kx, s.by * ky, s.bw * kx, s.bh * ky, s.bx, s.by, s.bw, s.bh);
+    ctx.fillStyle = s.tone > 0
+      ? 'rgba(255,244,232,' + (0.24 * s.tone * e) + ')'
+      : 'rgba(22,0,6,' + (0.24 * -s.tone * e) + ')';
+    ctx.fillRect(s.bx, s.by, s.bw, s.bh);
+    ctx.restore();
+    path(s.v);
+    ctx.strokeStyle = 'rgba(255,232,206,' + (0.6 * e) + ')';
+    ctx.lineWidth = 0.9; ctx.stroke();
+    ctx.restore();
+  }
+}
+requestAnimationFrame(frame);
+
+/* ============ споделяне ============ */
+function shareLinks(){
+  var url = encodeURIComponent(location.href.split('#')[0]);
+  var title = encodeURIComponent(document.title);
+  return {
+    fb: 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+    viber: 'viber://forward?text=' + title + '%20' + url,
+    wa: 'https://wa.me/?text=' + title + '%20' + url,
+    tg: 'https://t.me/share/url?url=' + url + '&text=' + title,
+    x: 'https://twitter.com/intent/tweet?url=' + url + '&text=' + title,
+    li: 'https://www.linkedin.com/sharing/share-offsite/?url=' + url
+  };
+}
+var links = shareLinks();
+document.querySelectorAll('[data-share]').forEach(function(a){ a.href = links[a.getAttribute('data-share')]; });
+$('finaleShare').href = links.fb;
+
+var ns = $('nativeShare');
+if(navigator.share){
+  ns.hidden = false;
+  ns.addEventListener('click', function(){
+    navigator.share({ title: document.title, url: location.href.split('#')[0] }).catch(function(){});
+  });
+}
+$('copyBtn').addEventListener('click', function(){
+  var btn = this, bg = btn.querySelector('.bg'), en = btn.querySelector('.en');
+  var url = location.href.split('#')[0];
+  function done(){
+    var ob = bg.textContent, oe = en.textContent;
+    bg.textContent = 'Копирано'; en.textContent = 'Copied';
+    setTimeout(function(){ bg.textContent = ob; en.textContent = oe; }, 1800);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done).catch(function(){});
+  } else {
+    var ta = document.createElement('textarea'); ta.value = url; document.body.appendChild(ta);
+    ta.select(); try{ document.execCommand('copy'); done(); }catch(e){} document.body.removeChild(ta);
+  }
+});
+})();
+</script>
+</body>
+</html>
